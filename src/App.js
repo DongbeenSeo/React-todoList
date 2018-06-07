@@ -79,7 +79,9 @@ class App extends Component {
                         ...t
                       };
                       if (t.id === todo.id) {
-                        newTodo.complete = true;
+                        newTodo.complete
+                          ? (newTodo.complete = false)
+                          : (newTodo.complete = true);
                       }
                       return newTodo;
                     })
@@ -88,6 +90,15 @@ class App extends Component {
                 }}
               >
                 완료
+              </button>
+              <button
+                onClick={e => {
+                  this.setState({
+                    todos: todos.filter(t => t.id !== todo.id)
+                  });
+                }}
+              >
+                삭제
               </button>
             </li>
           ))}
