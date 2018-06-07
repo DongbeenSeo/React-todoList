@@ -34,6 +34,29 @@ class App extends Component {
     newTodoBody: ""
   };
 
+  handleTodoItemComplete = id => {
+    this.setState({
+      todos: this.state.todos.map(t => {
+        const newTodo = {
+          ...t
+        };
+        if (t.id === id) {
+          //배열을 순회하는 id와 선택한 id의 값이 같으면
+          newTodo.complete
+            ? (newTodo.complete = false)
+            : (newTodo.complete = true);
+        }
+        return newTodo;
+      })
+    });
+  };
+
+  handleTodoItemDelete = id => {
+    this.setState({
+      todos: this.state.todos.filter(t => t.id !== id)
+    });
+  };
+
   handleInputChange = e => {
     this.setState({
       newTodoBody: e.target.value
@@ -53,6 +76,7 @@ class App extends Component {
       });
     }
   };
+
   render() {
     const { todos, newTodoBody } = this.state;
     return (
@@ -69,41 +93,43 @@ class App extends Component {
         </label>
         <ul>
           {todos.map(todo => (
-            <li className={todo.complete ? "complete" : ""} key={todo.id}>
-              {todo.body}
-              <button
-                onClick={e => {
-                  this.setState({
-                    todos: todos.map(t => {
-                      const newTodo = {
-                        ...t
-                      };
-                      if (t.id === todo.id) {
-                        newTodo.complete
-                          ? (newTodo.complete = false)
-                          : (newTodo.complete = true);
-                      }
-                      return newTodo;
-                    })
-                  });
-                  todo.id;
-                }}
-              >
-                완료
-              </button>
-              <button
-                onClick={e => {
-                  this.setState({
-                    todos: todos.filter(t => t.id !== todo.id)
-                  });
-                }}
-              >
-                삭제
-              </button>
-            </li>
+            <TodoItem
+              key={todo.id}
+              // id={todo.id}
+              // body={todo.body}
+              // complete={todo.complete}
+              {...todo}
+              onComplete={this.handleTodoItemComplete}
+              onDelete={this.handleTodoItemDelete}
+            />
           ))}
         </ul>
       </div>
+    );
+  }
+}
+
+class TodoItem extends Component {
+  render() {
+    const { id, body, complete, onComplete, onDelete } = this.props;
+    return (
+      <li className={complete ? "complete" : ""} key={id}>
+        {body}
+        <button
+          onClick={e => {
+            onComplete(id);
+          }}
+        >
+          완료
+        </button>
+        <button
+          onClick={e => {
+            onDelete(id);
+          }}
+        >
+          삭제
+        </button>
+      </li>
     );
   }
 }
