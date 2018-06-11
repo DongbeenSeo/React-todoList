@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TodoItem from "./components/TodoItem.js";
-
+import TodoList from "./components/TodoList.js";
 // todos= [
 //   {
 //     id: 1,
@@ -92,19 +92,11 @@ class App extends Component {
           />
           <button onClick={this.handleBtnClick}>추가</button>
         </label>
-        <ul>
-          {todos.map(todo => (
-            <TodoItem
-              key={todo.id}
-              // id={todo.id}
-              // body={todo.body}
-              // complete={todo.complete}
-              {...todo}
-              onComplete={this.handleTodoItemComplete}
-              onDelete={this.handleTodoItemDelete}
-            />
-          ))}
-        </ul>
+        <TodoList
+          todos={todos}
+          handleTodoItemComplete={this.handleTodoItemComplete}
+          handleTodoItemDelete={this.handleTodoItemDelete}
+        />
       </div>
     );
   }
