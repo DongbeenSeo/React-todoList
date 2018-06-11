@@ -56,12 +56,26 @@ class App extends Component {
     });
   };
 
-  handleTodoItemComplete = async id => {
+  handleTodoItemBodyUpdate = async (id, body) => {
     this.setState({
       loading: true
     });
     await todoAPI.patch(`/todos/${id}`, {
-      complete: true
+      body
+    });
+    await this.fetchTodos();
+  };
+
+  handleTodoItemComplete = async id => {
+    this.setState({
+      loading: true
+    });
+    let completeState = false;
+    const res = await todoAPI.get(`/todos/${id}`);
+    res.data.complete ? (completeState = false) : (completeState = true);
+
+    await todoAPI.patch(`/todos/${id}`, {
+      complete: completeState
     });
     await this.fetchTodos();
     // console.log(todos);
@@ -136,6 +150,7 @@ class App extends Component {
             todos={todos}
             handleTodoItemComplete={this.handleTodoItemComplete}
             handleTodoItemDelete={this.handleTodoItemDelete}
+            handleTodoItemBodyUpdate={this.handleTodoItemBodyUpdate}
           />
         )}
       </div>
