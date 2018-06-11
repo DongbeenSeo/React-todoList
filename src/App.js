@@ -4,7 +4,7 @@ import TodoList from "./components/TodoList.js";
 import axios from "axios";
 
 const todoAPI = axios.create({
-  baseURL: "https://react-todolist.glitch.me/"
+  baseURL: process.env.REACT_APP_API_URL
 });
 // todos= [
 //   {
