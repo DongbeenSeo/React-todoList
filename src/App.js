@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import TodoItem from "./components/TodoItem.js";
 
 // todos= [
 //   {
@@ -105,31 +106,6 @@ class App extends Component {
           ))}
         </ul>
       </div>
-    );
-  }
-}
-
-class TodoItem extends Component {
-  render() {
-    const { id, body, complete, onComplete, onDelete } = this.props;
-    return (
-      <li className={complete ? "complete" : ""} key={id}>
-        {body}
-        <button
-          onClick={e => {
-            onComplete(id);
-          }}
-        >
-          완료
-        </button>
-        <button
-          onClick={e => {
-            onDelete(id);
-          }}
-        >
-          삭제
-        </button>
-      </li>
     );
   }
 }
