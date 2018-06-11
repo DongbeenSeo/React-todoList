@@ -8,3 +8,13 @@ body {
     color: red;
     text-decoration: line-through;
 }
+
+.input.is-primary,
+.textarea.is-primary {
+    width: 200px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}

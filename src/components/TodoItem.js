@@ -9,23 +9,32 @@ export default class TodoItem extends Component {
   render() {
     const { id, body, complete, onComplete, onDelete } = this.props;
     return (
-      <li className={complete ? "complete" : ""} key={id}>
-        <span onClick={this.handleBodyClick}>{body}</span>
-        <button
-          onClick={e => {
-            onComplete(id);
-          }}
+      <li key={id}>
+        <span
+          className={complete ? "complete" : ""}
+          onClick={this.handleBodyClick}
         >
-          완료
-        </button>
+          {body}
+        </span>
+        <div className="buttons">
+          <button
+            onClick={e => {
+              onComplete(id);
+            }}
+            className="button is-primary"
+          >
+            완료
+          </button>
 
-        <button
-          onClick={e => {
-            onDelete(id);
-          }}
-        >
-          삭제
-        </button>
+          <button
+            onClick={e => {
+              onDelete(id);
+            }}
+            className="button is-danger"
+          >
+            삭제
+          </button>
+        </div>
       </li>
     );
   }
