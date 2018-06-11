@@ -21,7 +21,7 @@ const todoAPI = axios.create({
 
 //todos의 complete는 변경해야 하는 상태임으로 새로 coding
 
-let count = 0;
+let count = 1;
 
 class App extends Component {
   state = {
@@ -42,6 +42,10 @@ class App extends Component {
   };
 
   async componentDidMount() {
+    await this.fetchTodos();
+  }
+
+  fetchTodos = async () => {
     this.setState({
       loading: true
     });
@@ -50,29 +54,42 @@ class App extends Component {
       todos: res.data,
       loading: false
     });
-  }
-
-  handleTodoItemComplete = id => {
-    this.setState({
-      todos: this.state.todos.map(t => {
-        const newTodo = {
-          ...t
-        };
-        if (t.id === id) {
-          //배열을 순회하는 id와 선택한 id의 값이 같으면
-          newTodo.complete
-            ? (newTodo.complete = false)
-            : (newTodo.complete = true);
-        }
-        return newTodo;
-      })
-    });
   };
 
-  handleTodoItemDelete = id => {
+  handleTodoItemComplete = async id => {
     this.setState({
-      todos: this.state.todos.filter(t => t.id !== id)
+      loading: true
     });
+    await todoAPI.patch(`/todos/${id}`, {
+      complete: true
+    });
+    await this.fetchTodos();
+    // console.log(todos);
+    // this.setState({
+    //   todos: this.state.todos.map(t => {
+    //     const newTodo = {
+    //       ...t
+    //     };
+    //     if (t.id === id) {
+    //       //배열을 순회하는 id와 선택한 id의 값이 같으면
+    //       newTodo.complete
+    //         ? (newTodo.complete = false)
+    //         : (newTodo.complete = true);
+    //     }
+    //     return newTodo;
+    //   })
+    // });
+  };
+
+  handleTodoItemDelete = async id => {
+    this.setState({
+      loading: true
+    });
+    await todoAPI.delete(`todos/${id}`);
+    await this.fetchTodos();
+    // this.setState({
+    //   todos: this.state.todos.filter(t => t.id !== id)
+    // });
   };
 
   handleInputChange = e => {
@@ -81,15 +98,18 @@ class App extends Component {
     });
   };
 
-  handleBtnClick = e => {
+  handleBtnClick = async e => {
     if (this.state.newTodoBody) {
       const newTodo = {
         body: this.state.newTodoBody,
-        complete: false,
-        id: count++
+        complete: false
       };
       this.setState({
-        todos: [...this.state.todos, newTodo],
+        loading: true
+      });
+      await todoAPI.post("/todos", newTodo);
+      await this.fetchTodos();
+      this.setState({
         newTodoBody: ""
       });
     }
