@@ -13,12 +13,17 @@ class App extends Component {
       page: "todo"
     });
   };
+  gotoLoginPage = () => {
+    this.setState({
+      page: "login"
+    });
+  };
   render() {
     const { page } = this.state;
     return (
       <div>
         {page === "login" ? (
-          <LoginPage onChange={this.gotoTodoPage} />
+          <LoginPage onLogin={this.gotoTodoPage} />
         ) : (
           <TodoPage />
         )}

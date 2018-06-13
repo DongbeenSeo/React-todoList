@@ -1,13 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
 
 import TodoList from "../components/TodoList.js";
 import TodoForm from "../components/TodoForm.js";
-
-const todoAPI = axios.create({
-  baseURL: process.env.REACT_APP_API_URL
-});
-
+import todoAPI from "../todoAPI.js";
 //todos의 complete는 변경해야 하는 상태임으로 새로 coding
 
 export default class TodoPage extends Component {
@@ -79,9 +74,11 @@ export default class TodoPage extends Component {
 
   render() {
     const { todos, loading } = this.state;
+    const { onLogin } = this.props;
     return (
       <div>
         <h1>TodoList</h1>
+        <button onClick={onLogin}>Sign Out</button>
         <TodoForm onCreate={this.createTodo} />
         {loading ? (
           <div>loading....</div>
