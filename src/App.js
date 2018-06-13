@@ -31,7 +31,7 @@ class App extends Component {
     });
   };
 
-  handleTodoItemBodyUpdate = async (id, body) => {
+  updataTodoBody = async (id, body) => {
     this.setState({
       loading: true
     });
@@ -41,7 +41,7 @@ class App extends Component {
     await this.fetchTodos();
   };
 
-  handleTodoItemComplete = async id => {
+  completeTodo = async id => {
     this.setState({
       loading: true
     });
@@ -55,7 +55,7 @@ class App extends Component {
     await this.fetchTodos();
   };
 
-  handleTodoItemDelete = async id => {
+  deleteTodo = async id => {
     this.setState({
       loading: true
     });
@@ -88,9 +88,9 @@ class App extends Component {
         ) : (
           <TodoList
             todos={todos}
-            handleTodoItemComplete={this.handleTodoItemComplete}
-            handleTodoItemDelete={this.handleTodoItemDelete}
-            handleTodoItemBodyUpdate={this.handleTodoItemBodyUpdate}
+            onTodoComplete={this.completeTodo}
+            onTodoDelete={this.deleteTodo}
+            onTodoUpdate={this.updataTodoBody}
           />
         )}
       </div>

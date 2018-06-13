@@ -18,7 +18,6 @@ export default class TodoItem extends Component {
         >
           완료
         </button>
-
         <button
           onClick={e => {
             onDelete(id);
