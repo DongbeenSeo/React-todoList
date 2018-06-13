@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import LoginPage from "./pages/LoginPage.js";
 import TodoPage from "./pages/TodoPage.js";
 
+export const PageContext = React.createContext();
+
 class App extends Component {
   state = {
     page: "login"
@@ -20,14 +22,13 @@ class App extends Component {
   };
   render() {
     const { page } = this.state;
+    const value = {
+      gotoTodoPage: this.gotoTodoPage
+    };
     return (
-      <div>
-        {page === "login" ? (
-          <LoginPage onLogin={this.gotoTodoPage} />
-        ) : (
-          <TodoPage />
-        )}
-      </div>
+      <PageContext.Provider value={value}>
+        <div>{page === "login" ? <LoginPage /> : <TodoPage />}</div>
+      </PageContext.Provider>
     );
   }
 }

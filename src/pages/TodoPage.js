@@ -74,11 +74,9 @@ export default class TodoPage extends Component {
 
   render() {
     const { todos, loading } = this.state;
-    const { onLogin } = this.props;
     return (
       <div>
         <h1>TodoList</h1>
-        <button onClick={onLogin}>Sign Out</button>
         <TodoForm onCreate={this.createTodo} />
         {loading ? (
           <div>loading....</div>

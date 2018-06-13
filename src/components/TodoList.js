@@ -9,9 +9,6 @@ export default class TodoList extends Component {
         {todos.map(todo => (
           <TodoItem
             key={todo.id}
-            // id={todo.id}
-            // body={todo.body}
-            // complete={todo.complete}
             {...todo}
             onComplete={onTodoComplete}
             onDelete={onTodoDelete}
