@@ -12,7 +12,6 @@ class UserProvider extends Component {
     });
     // 로컬 스토리지에 토큰 저장
     localStorage.setItem("token", res.data.token);
-    this.props.onLogin();
   };
 
   render() {
