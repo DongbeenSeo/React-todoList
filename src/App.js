@@ -3,32 +3,21 @@ import React, { Component } from "react";
 import LoginPage from "./pages/LoginPage.js";
 import TodoPage from "./pages/TodoPage.js";
 
-export const PageContext = React.createContext();
+import { PageProvider, PageConsumer } from "./contexts/PageContext.js";
+import { UserProvider } from "./contexts/UserContext.js";
 
 class App extends Component {
-  state = {
-    page: "login"
-  };
-
-  gotoTodoPage = () => {
-    this.setState({
-      page: "todo"
-    });
-  };
-  gotoLoginPage = () => {
-    this.setState({
-      page: "login"
-    });
-  };
   render() {
-    const { page } = this.state;
-    const value = {
-      gotoTodoPage: this.gotoTodoPage
-    };
     return (
-      <PageContext.Provider value={value}>
-        <div>{page === "login" ? <LoginPage /> : <TodoPage />}</div>
-      </PageContext.Provider>
+      <PageProvider>
+        <PageConsumer>
+          {value => (
+            <UserProvider onLogin={value.gotoTodoPage}>
+              {value.page === "login" ? <LoginPage /> : <TodoPage />}
+            </UserProvider>
+          )}
+        </PageConsumer>
+      </PageProvider>
     );
   }
 }
