@@ -69,7 +69,9 @@ export default class TodoProvider extends Component {
       await this.fetchTodos();
     }
   };
-
+  alertLogin = () => {
+    alert("need to Sign In");
+  };
   render() {
     const value = {
       loading: this.state.loading,
@@ -78,7 +80,8 @@ export default class TodoProvider extends Component {
       updateTodoBody: this.updateTodoBody,
       completeTodo: this.completeTodo,
       deleteTodo: this.deleteTodo,
-      createTodo: this.createTodo
+      createTodo: this.createTodo,
+      alertLogin: this.alertLogin
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

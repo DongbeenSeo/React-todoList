@@ -36,7 +36,15 @@ export default class TodoContainer extends Component {
         </TodoConsumer>
       );
     } else {
-      return <Redirect to="/login" />;
+      return (
+        <TodoConsumer>
+          {({ alertLogin }) => (
+            <div alertLogin={alertLogin}>
+              <Redirect to="/login" />
+            </div>
+          )}
+        </TodoConsumer>
+      );
     }
   }
 }
