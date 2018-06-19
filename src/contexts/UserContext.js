@@ -14,9 +14,14 @@ class UserProvider extends Component {
     localStorage.setItem("token", res.data.token);
   };
 
+  logout = () => {
+    localStorage.removeItem("token");
+  };
+
   render() {
     const value = {
-      login: this.login
+      login: this.login,
+      logout: this.logout
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }

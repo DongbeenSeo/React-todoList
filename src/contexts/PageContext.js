@@ -12,10 +12,17 @@ class PageProvider extends Component {
       page: "todo"
     });
   };
+
+  gotoLoginPage = () => {
+    this.setState({
+      page: "login"
+    });
+  };
   render() {
     const value = {
       page: this.state.page,
-      gotoTodoPage: this.gotoTodoPage
+      gotoTodoPage: this.gotoTodoPage,
+      gotoLoginPage: this.gotoLoginPage
     };
     return <Provider value={value}>{this.props.children}</Provider>;
   }
